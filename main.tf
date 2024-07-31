@@ -142,21 +142,21 @@ resource "aws_instance" "Jenkins" {
 }
 
 resource "aws_ecr_repository" "ECR" {
-  name = "ice-cream"
+  name = var.image_name
 }
 
 resource "aws_ecs_cluster" "ECS" {
-  name = "Ice-cream"
+  name = var.cluster_name
 }
 
 resource "aws_ecs_task_definition" "Task_denfination" {
   network_mode = "awsvpc"
-  family = "Ice-cream"
+  family = var.ecs_family
 
   container_definitions = jsonencode([
     {
-   name        = "Ice-cream"
-   image       = "Ice-cream:latest"
+   name        = "ice-cream"
+   image       = "ice-cream:latest"
    essential   = true
     cpu       = 10
       memory    = 512
@@ -170,7 +170,7 @@ resource "aws_ecs_task_definition" "Task_denfination" {
 }
 
 resource "aws_lb" "ALB" {
-  name = "Ice-cream-alb"
+  name = var.ALB
   internal = false
   load_balancer_type = "application"
    subnets = [aws_subnet.Subnet1.id , aws_subnet.Subnet2.id , aws_subnet.Subnet3.id]
@@ -179,7 +179,7 @@ resource "aws_lb" "ALB" {
 
 
 resource "aws_alb_target_group" "main" {
-  name        = "Ice-cream-TG"
+  name        = var.Target_grp
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.vpc-1406.id
@@ -208,7 +208,7 @@ resource "aws_lb_listener" "front_end" {
 
 
 resource "aws_ecs_service" "Service" {
-  name = "Ice-cream-service"
+  name = var.ecs_services
   cluster         = aws_ecs_cluster.ECS.id
   task_definition = aws_ecs_task_definition.Task_denfination.arn
   desired_count   = 2
@@ -220,7 +220,7 @@ resource "aws_ecs_service" "Service" {
 
   load_balancer {
     target_group_arn = aws_alb_target_group.main.arn
-   container_name   = "Ice-cream"
+   container_name   = var.image_name
    container_port   = var.Container-Port
   }
   

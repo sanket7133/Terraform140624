@@ -43,3 +43,27 @@ variable "Container-Port" {
 variable "host-Port" {
   default = "3000"
 }
+
+variable "image_name" {
+  default = "ice-cream"
+}
+
+variable "cluster_name" {
+  default = "ice-cream_cluster"
+}
+
+variable "ecs_family" {
+  default = "ice-cream_fam"
+}
+
+variable "ALB" {
+  default = "ice-cream_alb"
+}
+
+variable "Target_grp" {
+  default = "ice-cream_TG"
+}
+
+variable "ecs_services" {
+  default = "ice-cream_service"
+}
