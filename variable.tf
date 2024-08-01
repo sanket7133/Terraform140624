@@ -67,3 +67,13 @@ variable "Target_grp" {
 variable "ecs_services" {
   default = "ice-cream_service"
 }
+
+variable "AWS_Access_ID" {
+  type = string
+  sensitive = true
+}
+
+variable "AWS_secrete_key" {
+  type = string
+  sensitive = true
+}

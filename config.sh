@@ -29,3 +29,14 @@ sudo chmod 777 /var/run/docker.sock
 systemctl enable docker
 systemctl start docker
 
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+sudo aws configure set default.region "ap-south-1"
+sudo aws configure set default.output json
+
+sudo aws configure set aws_access_key_id ${AWS_Access_ID}
+sudo aws configure set aws_secret_access_key ${AWS_secrete_key}
+
+sudo apt-get update
